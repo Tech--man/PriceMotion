@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模型价格 | 国内大模型 API 调用成本对比</title>
+    <meta name="description" content="实时对比国内主流大模型API调用价格，涵盖DeepSeek、通义千问、文心一言、智谱GLM、Kimi等模型的输入输出价格，助您选择最具性价比的模型。">
+    <style>
+        :root {
+            --gray-0: #fafafa;
+            --gray-1: #f5f5f5;
+            --gray-2: #ebebeb;
+            --gray-3: #d9d9d9;
+            --gray-4: #bfbfbf;
+            --gray-5: #8c8c8c;
+            --gray-6: #595959;
+            --gray-7: #434343;
+            --gray-8: #262626;
+            --gray-9: #1a1a1a;
+            --gray-10: #0d0d0d;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-subtle: #eff6ff;
+            --accent-ring: rgba(37, 99, 235, 0.12);
+            --green: #059669;
+            --green-subtle: #ecfdf5;
+            --amber: #b45309;
+            --amber-subtle: #fffbeb;
+            --red: #dc2626;
+            --red-subtle: #fef2f2;
+            --bg: #fafafa;
+            --bg-surface: #ffffff;
+            --bg-raised: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #595959;
+            --text-tertiary: #8c8c8c;
+            --text-disabled: #bfbfbf;
+            --border: #e5e5e5;
+            --border-hover: #d4d4d4;
+            --border-focus: #2563eb;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.03);
+            --radius-xs: 4px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --font-sans: 'Inter', 'SF Pro Display', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+            --font-mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace;
+            --transition-fast: 120ms cubic-bezier(0.22, 0.61, 0.36, 1);
+            --transition-base: 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .dark {
+            --bg: #0d0d0d;
+            --bg-surface: #1a1a1a;
+            --bg-raised: #242424;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a3a3a3;
+            --text-tertiary: #737373;
+            --text-disabled: #525252;
+            --border: #2e2e2e;
+            --border-hover: #404040;
+            --border-focus: #3b82f6;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --accent-subtle: #1e293b;
+            --accent-ring: rgba(59, 130, 246, 0.2);
+            --green: #34d399;
+            --green-subtle: #064e3b;
+            --amber: #fbbf24;
+            --amber-subtle: #451a03;
+            --red: #f87171;
+            --red-subtle: #450a0a;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.25);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-size: 15px;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.55;
+            transition: background var(--transition-base), color var(--transition-base);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── header ── */
+        .header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: background var(--transition-base), border-color var(--transition-base);
+        }
+        .header-inner {
+            max-width: 1340px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+            padding: 0 24px;
+            gap: 16px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: -0.02em;
+        }
+        .logo-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-sm);
+            background: var(--text-primary);
+            color: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: background var(--transition-fast);
+        }
+        .logo-sep {
+            width: 1px;
+            height: 18px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+        .logo-label {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 13px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+            font-family: inherit;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: var(--gray-1);
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+        .dark .btn:hover {
+            background: var(--gray-8);
+            border-color: var(--border);
+        }
+        .btn-icon {
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1rem;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .btn-icon:hover {
+            background: var(--gray-1);
+            color: var(--text-primary);
+            border-color: var(--border);
+        }
+        .dark .btn-icon:hover {
+            background: var(--gray-8);
+            border-color: var(--border);
+        }
+
+        /* ── main ── */
+        .main {
+            flex: 1;
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 32px 24px 56px;
+            width: 100%;
+        }
+
+        /* ── intro ── */
+        .intro {
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .intro-left h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+        .intro-left .muted-line {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+            letter-spacing: -0.01em;
+        }
+        .intro-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            flex-shrink: 0;
+        }
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+        }
+
+        /* ── stats bar ── */
+        .stats-bar {
+            display: flex;
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-xs);
+        }
+        .stat-item {
+            flex: 1 1 0;
+            min-width: 100px;
+            background: var(--bg-surface);
+            padding: 13px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transition: background var(--transition-fast);
+        }
+        .stat-item:hover {
+            background: var(--gray-1);
+        }
+        .dark .stat-item:hover {
+            background: var(--gray-8);
+        }
+        .stat-num {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+        .stat-num.accent {
+            color: var(--accent);
+        }
+        .stat-num.green {
+            color: var(--green);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ── toolbar ── */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 10px 14px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-xs);
+            position: sticky;
+            top: 60px;
+            z-index: 50;
+            transition: all var(--transition-base);
+        }
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+        .search-wrap svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-tertiary);
+            width: 15px;
+            height: 15px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 7px 11px 7px 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            background: var(--bg);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+            font-family: inherit;
+            letter-spacing: -0.01em;
+            outline: none;
+        }
+        .search-input::placeholder {
+            color: var(--text-disabled);
+        }
+        .search-input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--accent-ring);
+            background: var(--bg-surface);
+        }
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+        }
+        .chip {
+            padding: 5px 11px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+            color: var(--text-secondary);
+            font-family: inherit;
+            letter-spacing: -0.01em;
+            user-select: none;
+        }
+        .chip:hover {
+            background: var(--gray-1);
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+        .dark .chip:hover {
+            background: var(--gray-8);
+            border-color: var(--border-hover);
+        }
+        .chip.active {
+            background: var(--text-primary);
+            color: var(--bg-surface);
+            border-color: var(--text-primary);
+            font-weight: 600;
+        }
+        .chip.free-chip {
+            border-color: var(--green);
+            color: var(--green);
+            font-weight: 500;
+        }
+        .chip.free-chip.active {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+        .sort-select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.78rem;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-family: inherit;
+            transition: all var(--transition-fast);
+            outline: none;
+            letter-spacing: -0.01em;
+            min-width: 130px;
+        }
+        .sort-select:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--accent-ring);
+        }
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .view-btn {
+            padding: 6px 12px;
+            border: none;
+            background: var(--bg-surface);
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: all var(--transition-fast);
+            color: var(--text-tertiary);
+            font-family: inherit;
+            letter-spacing: -0.01em;
+            font-weight: 500;
+        }
+        .view-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-surface);
+            font-weight: 600;
+        }
+        .view-btn:not(.active):hover {
+            background: var(--gray-1);
+            color: var(--text-primary);
+        }
+        .dark .view-btn:not(.active):hover {
+            background: var(--gray-8);
+        }
+
+        /* ── table ── */
+        .table-shell {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-base);
+        }
+        .scroll-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .scroll-wrap::-webkit-scrollbar {
+            height: 5px;
+        }
+        .scroll-wrap::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroll-wrap::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            min-width: 780px;
+            table-layout: auto;
+        }
+        thead th {
+            background: var(--gray-1);
+            padding: 11px 14px;
+            text-align: left;
+            font-weight: 550;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            transition: background var(--transition-fast);
+            position: sticky;
+            top: 0;
+        }
+        .dark thead th {
+            background: #1e1e1e;
+        }
+        thead th:hover {
+            background: var(--gray-2);
+        }
+        .dark thead th:hover {
+            background: #2a2a2a;
+        }
+        thead th .sort-arrow {
+            display: inline-block;
+            margin-left: 3px;
+            font-size: 0.6rem;
+            opacity: 0.35;
+            transition: opacity var(--transition-fast);
+        }
+        thead th.sorted .sort-arrow {
+            opacity: 1;
+            color: var(--accent);
+        }
+        tbody td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            transition: background var(--transition-fast);
+        }
+        .dark tbody td {
+            border-bottom-color: #2a2a2a;
+        }
+        tbody tr {
+            transition: background var(--transition-fast);
+        }
+        tbody tr:hover td {
+            background: #fafcff;
+        }
+        .dark tbody tr:hover td {
+            background: #1e2430;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .co-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 550;
+            font-size: 0.8rem;
+            letter-spacing: -0.01em;
+        }
+        .co-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .model-name {
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+        .model-note {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            display: block;
+            margin-top: 1px;
+            letter-spacing: 0;
+        }
+        .price-cell {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.82rem;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+            font-variant-numeric: tabular-nums;
+        }
+        .price-free {
+            color: var(--green);
+            font-weight: 650;
+        }
+        .price-low {
+            color: #0d9488;
+        }
+        .dark .price-low {
+            color: #5eead4;
+        }
+        .price-mid {
+            color: #b45309;
+        }
+        .dark .price-mid {
+            color: #fbbf24;
+        }
+        .price-high {
+            color: #b91c1c;
+        }
+        .dark .price-high {
+            color: #fca5a5;
+        }
+        .tag-inline {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 3px;
+            font-size: 0.66rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            line-height: 1.5;
+        }
+        .tag-free {
+            background: var(--green-subtle);
+            color: var(--green);
+        }
+        .tag-value {
+            background: #f0fdf4;
+            color: #166534;
+        }
+        .dark .tag-value {
+            background: #052e16;
+            color: #6ee7b7;
+        }
+        .tag-hot {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .dark .tag-hot {
+            background: #451a03;
+            color: #fcd34d;
+        }
+        .tag-new {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .dark .tag-new {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+        .tag-rec {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+        .dark .tag-rec {
+            background: #2d1b69;
+            color: #c4b5fd;
+        }
+
+        /* ── card grid ── */
+        .card-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 12px;
+        }
+        .card-grid.active {
+            display: grid;
+        }
+        .table-shell.card-hidden {
+            display: none;
+        }
+        .model-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-xs);
+            transition: all var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .model-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+        }
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .card-co {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 550;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+        }
+        .card-co-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .card-ctx {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-tertiary);
+        }
+        .card-model-name {
+            font-weight: 650;
+            font-size: 0.95rem;
+            letter-spacing: -0.02em;
+        }
+        .card-desc {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            line-height: 1.45;
+        }
+        .card-note {
+            font-size: 0.7rem;
+            color: var(--accent);
+            margin-top: 1px;
+        }
+        .card-prices {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .card-price-box {
+            background: var(--bg);
+            border-radius: var(--radius-xs);
+            padding: 9px 11px;
+            text-align: center;
+        }
+        .card-price-box .price-label {
+            font-size: 0.64rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+        }
+        .card-price-box .price-val {
+            font-family: var(--font-mono);
+            font-weight: 650;
+            font-size: 1rem;
+            margin-top: 1px;
+            letter-spacing: -0.02em;
+        }
+        .card-tags-row {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        /* ── empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-tertiary);
+            grid-column: 1 / -1;
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+        .empty-state .empty-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .empty-state .empty-title {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+        .empty-state .empty-hint {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ── footer ── */
+        .footer {
+            text-align: center;
+            padding: 20px 24px;
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-surface);
+            margin-top: auto;
+            letter-spacing: 0;
+            line-height: 1.7;
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .footer a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* ── toast ── */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--text-primary);
+            color: var(--bg-surface);
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.78rem;
+            font-weight: 500;
+            z-index: 999;
+            box-shadow: var(--shadow-lg);
+            animation: toastIn 0.25s ease, toastOut 0.25s ease 2.3s forwards;
+            pointer-events: none;
+            letter-spacing: -0.01em;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+        }
+
+        /* ── responsive ── */
+        @media (max-width: 860px) {
+            .header-inner {
+                height: 46px;
+                padding: 0 14px;
+                gap: 8px;
+            }
+            .logo-label {
+                display: none;
+            }
+            .logo-sep {
+                display: none;
+            }
+            .btn .btn-label {
+                display: none;
+            }
+            .main {
+                padding: 20px 12px 40px;
+            }
+            .intro {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                margin-bottom: 18px;
+            }
+            .intro-left h1 {
+                font-size: 1.3rem;
+            }
+            .intro-left .muted-line {
+                font-size: 0.73rem;
+            }
+            .stats-bar {
+                border-radius: var(--radius-sm);
+                gap: 0;
+            }
+            .stat-item {
+                padding: 10px 12px;
+                flex: 1 1 30%;
+                min-width: 70px;
+            }
+            .stat-num {
+                font-size: 1.05rem;
+            }
+            .stat-label {
+                font-size: 0.62rem;
+            }
+            .toolbar {
+                padding: 8px 10px;
+                gap: 6px;
+                border-radius: var(--radius-sm);
+                top: 50px;
+            }
+            .search-wrap {
+                min-width: 130px;
+            }
+            .search-input {
+                font-size: 0.75rem;
+                padding: 6px 8px 6px 28px;
+            }
+            .search-wrap svg {
+                width: 13px;
+                height: 13px;
+                left: 7px;
+            }
+            .chip {
+                padding: 4px 8px;
+                font-size: 0.68rem;
+            }
+            .sort-select {
+                font-size: 0.7rem;
+                padding: 5px 7px;
+                min-width: 100px;
+            }
+            .view-btn {
+                padding: 5px 9px;
+                font-size: 0.7rem;
+            }
+            table {
+                font-size: 0.7rem;
+                min-width: 650px;
+            }
+            thead th {
+                padding: 8px 9px;
+                font-size: 0.62rem;
+            }
+            tbody td {
+                padding: 8px 9px;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .model-card {
+                padding: 14px 16px;
+                gap: 9px;
+            }
+        }
+        @media (max-width: 480px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-wrap {
+                width: 100%;
+                min-width: auto;
+            }
+            .filter-row {
+                justify-content: flex-start;
+            }
+            .stats-bar {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .stat-item {
+                flex: 1 1 40%;
+            }
+        }
+        @media print {
+            .header,
+            .toolbar,
+            .footer,
+            .btn,
+            .btn-icon,
+            .view-toggle,
+            .intro,
+            .stats-bar {
+                display: none !important;
+            }
+            .table-shell {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            body {
+                background: #fff;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="#" class="logo-area" title="模型价格对比">
+                <span class="logo-mark">M</span>
+                <span class="logo-sep"></span>
+                <span class="logo-label">模型价格</span>
+            </a>
+            <div class="header-actions">
+                <button class="btn" onclick="sharePage()" title="复制链接">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <span class="btn-label">分享</span>
+                </button>
+                <button class="btn" onclick="window.print()" title="打印">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 12H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                </button>
+                <button class="btn-icon" onclick="toggleTheme()" title="切换主题" aria-label="切换深色/浅色模式">
+                    <span id="themeIcon">◐</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="intro">
+            <div class="intro-left">
+                <h1>国内大模型 API 价格对比</h1>
+                <p class="muted-line">按每百万 tokens 计价，实时追踪主流厂商官方定价</p>
+            </div>
+            <div class="intro-right">
+                <span class="badge-dot"></span> <span id="updateDate">加载中…</span>
+            </div>
+        </section>
+
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item"><span class="stat-num accent" id="statTotal">-</span><span class="stat-label">收录模型</span></div>
+            <div class="stat-item"><span class="stat-num green" id="statFree">-</span><span class="stat-label">免费模型</span></div>
+            <div class="stat-item"><span class="stat-num" id="statCheapest">-</span><span class="stat-label">最低输入价</span></div>
+            <div class="stat-item"><span class="stat-num" id="statAvgOutput">-</span><span class="stat-label">平均输出价</span></div>
+            <div class="stat-item"><span class="stat-num" id="statCompanies">-</span><span class="stat-label">覆盖厂商</span></div>
+        </div>
+
+        <div class="toolbar" id="toolbar">
+            <div class="search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索模型名称、厂商…">
+            </div>
+            <div class="filter-row" id="companyFilters"></div>
+            <button class="chip free-chip" id="freeFilter" data-free="false" onclick="toggleFreeFilter()">仅免费</button>
+            <select class="sort-select" id="sortSelect" onchange="applyAllFilters()">
+                <option value="default">默认排序</option>
+                <option value="input-asc">输入价 ↑ 从低到高</option>
+                <option value="input-desc">输入价 ↓ 从高到低</option>
+                <option value="output-asc">输出价 ↑ 从低到高</option>
+                <option value="output-desc">输出价 ↓ 从高到低</option>
+                <option value="company">按厂商分组</option>
+            </select>
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="table" onclick="switchView('table')">表格</button>
+                <button class="view-btn" data-view="card" onclick="switchView('card')">卡片</button>
+            </div>
+        </div>
+
+        <div class="table-shell" id="tableView">
+            <div class="scroll-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-sort="company">厂商</th>
+                            <th data-sort="model">模型</th>
+                            <th data-sort="desc">简介</th>
+                            <th data-sort="context">上下文</th>
+                            <th data-sort="input">输入价格<span class="sort-arrow">↕</span></th>
+                            <th data-sort="output">输出价格<span class="sort-arrow">↕</span></th>
+                            <th>标签</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-grid" id="cardView"></div>
+    </main>
+
+    <footer class="footer">
+        <p>数据来源于各厂商官方公布信息，实际价格可能因活动或优惠调整。</p>
+        <p>本站仅做信息整理，详情请查阅 <a href="#" target="_blank">各厂商官方定价页</a>。</p>
+    </footer>
+
+    <div id="toastContainer"></div>
+
+    <script>
+        (function() {
+            let modelsData = [];
+            /* ── data loaded dynamically from models.json ── */
+
+            let currentView = 'table';
+            let activeCompany = 'all';
+            let freeOnly = false;
+            let currentSort = 'default';
+            let searchQuery = '';
+
+            const tableBody = document.getElementById('tableBody');
+            const cardView = document.getElementById('cardView');
+            const tableView = document.getElementById('tableView');
+            const searchInput = document.getElementById('searchInput');
+            const companyFilters = document.getElementById('companyFilters');
+            const freeFilter = document.getElementById('freeFilter');
+            const sortSelect = document.getElementById('sortSelect');
+            const themeIcon = document.getElementById('themeIcon');
+
+            function updateDate() {
+                const el = document.getElementById('updateDate');
+                if (!modelsData.length) { el.textContent = '暂无数据'; return; }
+                const latest = modelsData.reduce((max, m) => {
+                    if (!m.lastUpdated) return max;
+                    const d = new Date(m.lastUpdated);
+                    return d > max ? d : max;
+                }, new Date(0));
+                if (latest.getTime() === 0) { el.textContent = '日期未知'; return; }
+                el.textContent = '更新至 ' + latest.getFullYear() + ' 年 ' + (latest.getMonth() + 1) + ' 月';
+            }
+
+            async function loadModels() {
+                try {
+                    const resp = await fetch('models.json');
+                    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                    modelsData = await resp.json();
+                } catch (e) {
+                    console.error('加载 models.json 失败:', e);
+                    tableBody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><span class="empty-icon">⊘</span><div class="empty-title">数据加载失败</div><div class="empty-hint">请稍后刷新页面重试</div></div></td></tr>';
+                    updateDate();
+                    return;
+                }
+                init();
+            }
+
+            function init() {
+                buildCompanyFilters();
+                applyAllFilters();
+                updateStats();
+                updateDate();
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.body.classList.add('dark');
+                    themeIcon.textContent = '●';
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage
+                    .getItem('theme')) {
+                    document.body.classList.add('dark');
+                    themeIcon.textContent = '●';
+                }
+            }
+
+            function buildCompanyFilters() {
+                const companies = [...new Set(modelsData.map(m => m.company))];
+                companyFilters.innerHTML =
+                '<button class="chip active" data-company="all">全部</button>';
+                companies.forEach(comp => {
+                    const btn = document.createElement('button');
+                    btn.className = 'chip';
+                    btn.dataset.company = comp;
+                    btn.textContent = comp;
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('#companyFilters .chip').forEach(b => b.classList
+                            .remove('active'));
+                        btn.classList.add('active');
+                        activeCompany = comp;
+                        applyAllFilters();
+                        updateStats();
+                    });
+                    companyFilters.appendChild(btn);
+                });
+                companyFilters.querySelector('[data-company="all"]').addEventListener('click', () => {
+                    document.querySelectorAll('#companyFilters .chip').forEach(b => b.classList.remove(
+                        'active'));
+                    companyFilters.querySelector('[data-company="all"]').classList.add('active');
+                    activeCompany = 'all';
+                    applyAllFilters();
+                    updateStats();
+                });
+            }
+
+            function getFilteredData() {
+                let data = [...modelsData];
+                if (activeCompany !== 'all') data = data.filter(m => m.company === activeCompany);
+                if (freeOnly) data = data.filter(m => m.inputPrice === 0 && m.outputPrice === 0);
+                if (searchQuery.trim()) {
+                    const q = searchQuery.trim().toLowerCase();
+                    data = data.filter(m =>
+                        m.model.toLowerCase().includes(q) || m.company.toLowerCase().includes(q) || m.desc
+                        .toLowerCase().includes(q) || (m.note && m.note.toLowerCase().includes(q))
+                    );
+                }
+                if (currentSort === 'input-asc') data.sort((a, b) => a.inputPrice - b.inputPrice);
+                else if (currentSort === 'input-desc') data.sort((a, b) => b.inputPrice - a.inputPrice);
+                else if (currentSort === 'output-asc') data.sort((a, b) => a.outputPrice - b.outputPrice);
+                else if (currentSort === 'output-desc') data.sort((a, b) => b.outputPrice - a.outputPrice);
+                else if (currentSort === 'company') data.sort((a, b) => a.company.localeCompare(b.company, 'zh'));
+                return data;
+            }
+
+            function priceClass(p) {
+                if (p === 0) return 'price-free';
+                if (p <= 1.5) return 'price-low';
+                if (p <= 20) return 'price-mid';
+                return 'price-high';
+            }
+
+            function fmtPrice(p) {
+                if (p === 0) return '免费';
+                return '¥' + (p < 1 ? p.toFixed(2) : p.toFixed(0));
+            }
+
+            function tagHTML(tags) {
+                const map = {
+                    'free': '<span class="tag-inline tag-free">免费</span>',
+                    'value': '<span class="tag-inline tag-value">性价比</span>',
+                    'hot': '<span class="tag-inline tag-hot">热门</span>',
+                    'new': '<span class="tag-inline tag-new">新上线</span>',
+                    'rec': '<span class="tag-inline tag-rec">推荐</span>'
+                };
+                return tags.map(t => map[t] || '').join(' ');
+            }
+
+            function renderTable(data) {
+                if (data.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><span class="empty-icon">⊘</span><div class="empty-title">没有匹配结果</div><div class="empty-hint">试试调整筛选条件或搜索词</div></div></td></tr>`;
+                    return;
+                }
+                tableBody.innerHTML = data.map(m => {
+                    const ic = priceClass(m.inputPrice);
+                    const oc = priceClass(m.outputPrice);
+                    const idisp = m.inputPrice === 0 ? '<span class="price-free">免费</span>' :
+                        `<span class="${ic}">¥${m.inputPrice < 1 ? m.inputPrice.toFixed(2) : m.inputPrice.toFixed(0)}</span>`;
+                    const odisp = m.outputPrice === 0 ? '<span class="price-free">免费</span>' :
+                        `<span class="${oc}">¥${m.outputPrice < 1 ? m.outputPrice.toFixed(2) : m.outputPrice.toFixed(0)}</span>`;
+                    const thtml = tagHTML(m.tags);
+                    const titleAttr = m.note ? ` title="${m.note}"` : '';
+                    return `<tr>
+                        <td><span class="co-indicator"><span class="co-dot" style="background:${m.companyColor};"></span>${m.company}</span></td>
+                        <td><span class="model-name">${m.model}</span>${m.note ? `<span class="model-note">${m.note}</span>` : ''}</td>
+                        <td style="color:var(--text-tertiary);font-size:0.75rem;">${m.desc}</td>
+                        <td style="font-family:var(--font-mono);font-size:0.73rem;color:var(--text-secondary);">${m.context}</td>
+                        <td class="price-cell"${titleAttr}>${idisp}</td>
+                        <td class="price-cell"${titleAttr}>${odisp}</td>
+                        <td>${thtml}</td>
+                    </tr>`;
+                }).join('');
+            }
+
+            function renderCards(data) {
+                if (data.length === 0) {
+                    cardView.innerHTML =
+                        `<div class="empty-state"><span class="empty-icon">⊘</span><div class="empty-title">没有匹配结果</div><div class="empty-hint">试试调整筛选条件或搜索词</div></div>`;
+                    return;
+                }
+                cardView.innerHTML = data.map(m => {
+                    const ic = priceClass(m.inputPrice);
+                    const oc = priceClass(m.outputPrice);
+                    const idisp = m.inputPrice === 0 ? '免费' : '¥' + (m.inputPrice < 1 ? m.inputPrice.toFixed(
+                        2) : m.inputPrice.toFixed(0));
+                    const odisp = m.outputPrice === 0 ? '免费' : '¥' + (m.outputPrice < 1 ? m.outputPrice.toFixed(
+                        2) : m.outputPrice.toFixed(0));
+                    const thtml = tagHTML(m.tags);
+                    return `<div class="model-card">
+                        <div class="card-top">
+                            <span class="card-co"><span class="card-co-dot" style="background:${m.companyColor};"></span>${m.company}</span>
+                            <span class="card-ctx">${m.context}</span>
+                        </div>
+                        <div class="card-model-name">${m.model}</div>
+                        <div class="card-desc">${m.desc}</div>
+                        ${m.note ? `<div class="card-note">${m.note}</div>` : ''}
+                        <div class="card-prices">
+                            <div class="card-price-box"><span class="price-label">输入</span><div class="price-val ${ic}">${idisp}</div></div>
+                            <div class="card-price-box"><span class="price-label">输出</span><div class="price-val ${oc}">${odisp}</div></div>
+                        </div>
+                        ${thtml ? `<div class="card-tags-row">${thtml}</div>` : ''}
+                    </div>`;
+                }).join('');
+            }
+
+            function applyAllFilters() {
+                currentSort = sortSelect.value;
+                const data = getFilteredData();
+                renderTable(data);
+                renderCards(data);
+                if (currentView === 'table') {
+                    tableView.classList.remove('card-hidden');
+                    cardView.classList.remove('active');
+                } else {
+                    tableView.classList.add('card-hidden');
+                    cardView.classList.add('active');
+                }
+                updateStats(data);
+            }
+
+            function updateStats(dataOverride) {
+                const data = dataOverride || getFilteredData();
+                const all = modelsData;
+                const freeModels = all.filter(m => m.inputPrice === 0 && m.outputPrice === 0);
+                const paid = all.filter(m => m.inputPrice > 0 || m.outputPrice > 0);
+                const cheapestIn = paid.length > 0 ? Math.min(...paid.map(m => m.inputPrice)) : 0;
+                const avgOut = paid.length > 0 ? paid.reduce((s, m) => s + m.outputPrice, 0) / paid.length : 0;
+                const comps = new Set(all.map(m => m.company));
+                document.getElementById('statTotal').textContent = all.length;
+                document.getElementById('statFree').textContent = freeModels.length;
+                document.getElementById('statCheapest').textContent = cheapestIn === 0 ? '免费' : '¥' + cheapestIn.toFixed(
+                    cheapestIn < 1 ? 2 : 0);
+                document.getElementById('statAvgOutput').textContent = '¥' + avgOut.toFixed(1);
+                document.getElementById('statCompanies').textContent = comps.size;
+            }
+
+            function switchView(view) {
+                currentView = view;
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`.view-btn[data-view="${view}"]`).classList.add('active');
+                applyAllFilters();
+                document.getElementById('toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function toggleFreeFilter() {
+                freeOnly = !freeOnly;
+                if (freeOnly) {
+                    freeFilter.classList.add('active');
+                    freeFilter.dataset.free = 'true';
+                    freeFilter.textContent = '仅免费 · 已选';
+                } else {
+                    freeFilter.classList.remove('active');
+                    freeFilter.dataset.free = 'false';
+                    freeFilter.textContent = '仅免费';
+                }
+                applyAllFilters();
+                updateStats();
+            }
+
+            searchInput.addEventListener('input', (e) => { searchQuery = e.target.value;
+                applyAllFilters();
+                updateStats(); });
+            document.querySelector('thead').addEventListener('click', (e) => {
+                const th = e.target.closest('th');
+                if (!th || !th.dataset.sort) return;
+                document.querySelectorAll('thead th').forEach(h => h.classList.remove('sorted'));
+                th.classList.add('sorted');
+                const key = th.dataset.sort;
+                if (key === 'company') sortSelect.value = 'company';
+                else if (key === 'input') sortSelect.value = currentSort === 'input-asc' ? 'input-desc' :
+                    'input-asc';
+                else if (key === 'output') sortSelect.value = currentSort === 'output-asc' ? 'output-desc' :
+                    'output-asc';
+                else if (key === 'model') sortSelect.value = 'default';
+                applyAllFilters();
+            });
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select(); }
+                if (e.key === 'Escape') { searchInput.value = '';
+                    searchQuery = '';
+                    searchInput.blur();
+                    applyAllFilters();
+                    updateStats(); }
+            });
+
+            window.toggleTheme = function() {
+                const isDark = document.body.classList.toggle('dark');
+                themeIcon.textContent = isDark ? '●' : '◐';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            };
+            window.sharePage = function() {
+                const url = window.location.href;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(() => showToast('链接已复制到剪贴板'));
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = url;
+                    ta.style.cssText = 'position:fixed;opacity:0;';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy');
+                        showToast('链接已复制'); } catch (e) { showToast('分享链接：' + url); }
+                    document.body.removeChild(ta);
+                }
+            };
+
+            function showToast(msg) {
+                const c = document.getElementById('toastContainer');
+                const t = document.createElement('div');
+                t.className = 'toast';
+                t.textContent = msg;
+                c.appendChild(t);
+                setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 2800);
+            }
+            window.addEventListener('resize', () => {});
+            loadModels();
+        })();
+    </script>
+</body>
+</html>

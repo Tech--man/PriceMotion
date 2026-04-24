@@ -1,0 +1,207 @@
+{
+  "providers": {
+    "deepseek": {
+      "company": "DeepSeek",
+      "companyColor": "#4f46e5",
+      "url": "https://platform.deepseek.com/api-docs/pricing"
+    },
+    "qwen": {
+      "company": "阿里通义千问",
+      "companyColor": "#d97706",
+      "url": "https://help.aliyun.com/zh/model-studio/getting-started/models"
+    },
+    "zhipu": {
+      "company": "智谱AI",
+      "companyColor": "#2563eb",
+      "url": "https://open.bigmodel.cn/pricing"
+    },
+    "moonshot": {
+      "company": "月之暗面 Kimi",
+      "companyColor": "#059669",
+      "url": "https://platform.moonshot.cn/docs/pricing"
+    },
+    "baichuan": {
+      "company": "百川智能",
+      "companyColor": "#dc2626",
+      "url": "https://platform.baichuan-ai.com/price"
+    },
+    "xfyun": {
+      "company": "讯飞星火",
+      "companyColor": "#7c3aed",
+      "url": "https://www.xfyun.cn/doc/spark/Web.html"
+    },
+    "doubao": {
+      "company": "字节豆包",
+      "companyColor": "#0d9488",
+      "url": "https://www.volcengine.com/docs/82379/1099320"
+    },
+    "hunyuan": {
+      "company": "腾讯混元",
+      "companyColor": "#0891b2",
+      "url": "https://cloud.tencent.com/document/product/1729/97731"
+    },
+    "ernie": {
+      "company": "百度文心一言",
+      "companyColor": "#db2777",
+      "url": "https://cloud.baidu.com/doc/WENXINWORKSHOP/s/hlrk4akp7"
+    }
+  },
+  "models": {
+    "deepseek-v3": {
+      "desc": "旗舰通用模型，综合能力强，性价比极高",
+      "tags": ["value"],
+      "note": "缓存命中 ¥0.5/百万tokens",
+      "context": "128K"
+    },
+    "deepseek-r1": {
+      "desc": "推理增强模型，擅长复杂逻辑推理与数学",
+      "tags": ["hot", "rec"],
+      "note": "思维链模型，输出含推理过程",
+      "context": "128K"
+    },
+    "deepseek-v2": {
+      "desc": "上一代旗舰，平衡性能与成本",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "qwen-turbo": {
+      "desc": "轻量快速模型，适合高并发场景",
+      "tags": ["value"],
+      "note": "",
+      "context": "128K"
+    },
+    "qwen-plus": {
+      "desc": "增强版，平衡性能与速度",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "qwen-max": {
+      "desc": "旗舰模型，综合能力最强",
+      "tags": ["rec"],
+      "note": "",
+      "context": "32K"
+    },
+    "qwen-long": {
+      "desc": "超长上下文专用模型",
+      "tags": ["new"],
+      "note": "支持百万级tokens上下文",
+      "context": "1000K"
+    },
+    "glm-4-flash": {
+      "desc": "免费轻量模型，适合原型开发与测试",
+      "tags": ["free", "value"],
+      "note": "完全免费",
+      "context": "128K"
+    },
+    "glm-4-air": {
+      "desc": "高性价比模型，极低价格",
+      "tags": ["value"],
+      "note": "输入输出同价",
+      "context": "128K"
+    },
+    "glm-4": {
+      "desc": "旗舰模型，综合能力优秀",
+      "tags": [],
+      "note": "输入输出同价",
+      "context": "128K"
+    },
+    "kimi-v1-8k": {
+      "desc": "标准上下文模型",
+      "tags": [],
+      "note": "输入输出同价",
+      "context": "8K"
+    },
+    "kimi-v1-32k": {
+      "desc": "中等上下文，适合文档处理",
+      "tags": [],
+      "note": "输入输出同价",
+      "context": "32K"
+    },
+    "kimi-v1-128k": {
+      "desc": "超长上下文，适合长文档分析",
+      "tags": [],
+      "note": "输入输出同价，上下文越长越贵",
+      "context": "128K"
+    },
+    "baichuan4": {
+      "desc": "最新旗舰模型",
+      "tags": ["new"],
+      "note": "",
+      "context": "128K"
+    },
+    "baichuan3-turbo": {
+      "desc": "快速响应模型，性价比之选",
+      "tags": ["value"],
+      "note": "",
+      "context": "128K"
+    },
+    "spark-lite": {
+      "desc": "免费轻量模型",
+      "tags": ["free"],
+      "note": "完全免费",
+      "context": "8K"
+    },
+    "spark-pro": {
+      "desc": "专业版模型",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "spark-max": {
+      "desc": "旗舰版，能力最强",
+      "tags": [],
+      "note": "输出价格较高",
+      "context": "128K"
+    },
+    "doubao-lite": {
+      "desc": "轻量快速模型，极低价格",
+      "tags": ["value"],
+      "note": "",
+      "context": "128K"
+    },
+    "doubao-pro": {
+      "desc": "专业版模型，性能更强",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "hunyuan-lite": {
+      "desc": "免费轻量模型",
+      "tags": ["free"],
+      "note": "完全免费",
+      "context": "32K"
+    },
+    "hunyuan-standard": {
+      "desc": "标准版模型",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "hunyuan-pro": {
+      "desc": "旗舰版模型",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    },
+    "ernie-speed": {
+      "desc": "快速推理模型",
+      "tags": ["free"],
+      "note": "免费使用",
+      "context": "8K"
+    },
+    "ernie-lite": {
+      "desc": "轻量版模型",
+      "tags": ["free"],
+      "note": "免费使用",
+      "context": "8K"
+    },
+    "ernie-4-turbo": {
+      "desc": "旗舰模型，综合能力强",
+      "tags": [],
+      "note": "",
+      "context": "128K"
+    }
+  }
+}
