@@ -84,6 +84,10 @@ def merge_models(
 
     for m in scraped:
         mid = m["id"]
+        # 过滤掉无效模型：id 为空、价格未解析
+        if not mid or mid.endswith("-") or m.get("inputPrice", -1) < 0:
+            logging.debug(f"跳过无效模型: {mid} (inputPrice={m.get('inputPrice')})")
+            continue
         # 找到对应的 provider key
         provider_key = mid.split("-")[0] if "-" in mid else ""
         p_info = provider_map.get(provider_key, {})
@@ -167,8 +171,8 @@ def create_page(browser: Browser, url: str, wait_selector: str = "body", timeout
     page = None
     try:
         page = browser.new_page()
-        page.goto(url, wait_until="networkidle", timeout=timeout)
-        page.wait_for_selector(wait_selector, timeout=10000)
+        page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+        page.wait_for_selector(wait_selector, timeout=15000)
         return page
     except Exception as e:
         logging.error(f"页面加载失败 {url}: {e}")
@@ -506,36 +510,40 @@ def scrape_doubao(browser: Browser) -> List[Dict]:
     if not page:
         return []
     try:
-        models = extract_table_models(page, "doubao", url, context_col=3)
-        # 如果通用解析器没有结果，尝试更灵活的表格查找
-        if not models:
-            tables = page.query_selector_all("table")
-            for table in tables:
-                text = safe_inner_text(table)
-                if "输入" not in text and "输出" not in text:
+        models = []
+        # 只取包含对话/文本模型定价的表格
+        tables = page.query_selector_all("table")
+        for table in tables:
+            text = safe_inner_text(table)
+            if "输入" not in text and "输出" not in text:
+                continue
+            rows = table.query_selector_all("tr")
+            for row in rows[1:]:
+                cols = row.query_selector_all("td")
+                if len(cols) < 3:
                     continue
-                rows = table.query_selector_all("tr")
-                for row in rows[1:]:
-                    cols = row.query_selector_all("td")
-                    if len(cols) < 3:
-                        continue
-                    model_name = safe_inner_text(cols[0])
-                    if not model_name:
-                        continue
-                    input_price = parse_price(safe_inner_text(cols[1]))
-                    output_price = parse_price(safe_inner_text(cols[2]))
-                    mid = slugify(model_name, "doubao")
-                    models.append({
-                        "id": mid,
-                        "model": model_name,
-                        "inputPrice": input_price,
-                        "outputPrice": output_price,
-                        "url": url,
-                        "context": "",
-                        "lastUpdated": NOW,
-                    })
-                if models:
-                    break
+                model_name = safe_inner_text(cols[0])
+                if not model_name:
+                    continue
+                # 过滤掉嵌入/向量/重排等非对话模型
+                skip_keywords = ["embedding", "embed", "向量", "重排", "rerank"]
+                if any(kw in model_name.lower() for kw in skip_keywords):
+                    continue
+                input_price = parse_price(safe_inner_text(cols[1]))
+                output_price = parse_price(safe_inner_text(cols[2]))
+                # 跳过价格未解析的行
+                if input_price < 0:
+                    continue
+                mid = slugify(model_name, "doubao")
+                models.append({
+                    "id": mid,
+                    "model": model_name,
+                    "inputPrice": input_price,
+                    "outputPrice": output_price if output_price >= 0 else input_price,
+                    "url": url,
+                    "context": "",
+                    "lastUpdated": NOW,
+                })
         logging.info(f"字节豆包: 获取到 {len(models)} 个模型")
         return models
     finally:
