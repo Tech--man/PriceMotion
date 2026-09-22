@@ -11,7 +11,7 @@
     "tags": [],
     "url": "https://platform.moonshot.cn/docs/pricing",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "kimi-k27-code",
@@ -25,7 +25,7 @@
     "tags": [],
     "url": "https://platform.moonshot.cn/docs/pricing",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "kimi-k27-code-highspeed",
@@ -39,7 +39,7 @@
     "tags": [],
     "url": "https://platform.moonshot.cn/docs/pricing",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "kimi-k3",
@@ -53,7 +53,7 @@
     "tags": [],
     "url": "https://platform.moonshot.cn/docs/pricing",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen35-omni-plus-realtime",
@@ -81,7 +81,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen38-max",
@@ -95,7 +95,21 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
+  },
+  {
+    "id": "qwen38-omni-flash-realtime",
+    "company": "",
+    "companyColor": "",
+    "model": "qwen3.8-omni-flash-realtime",
+    "desc": "",
+    "context": "",
+    "inputPrice": 3.8,
+    "outputPrice": -1,
+    "tags": [],
+    "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
+    "note": "",
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "deepseek-r1",
@@ -156,7 +170,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-480p",
@@ -170,7 +184,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-4k",
@@ -184,7 +198,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-720p",
@@ -198,7 +212,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-deepseek-v32",
@@ -340,7 +354,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-20-lite",
@@ -354,7 +368,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-20-mini",
@@ -368,7 +382,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-20-pro",
@@ -382,7 +396,21 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
+  },
+  {
+    "id": "doubao-seed-21-lite",
+    "company": "字节豆包",
+    "companyColor": "#0d9488",
+    "model": "doubao-seed-2.1-lite​",
+    "desc": "",
+    "context": "",
+    "inputPrice": 1024.0,
+    "outputPrice": 0.4,
+    "tags": [],
+    "url": "https://www.volcengine.com/docs/82379/1099320",
+    "note": "",
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-21-pro",
@@ -396,7 +424,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-21-turbo",
@@ -410,7 +438,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-character",
@@ -424,7 +452,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed-code",
@@ -452,7 +480,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seed3d-20",
@@ -466,7 +494,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seedance-10-lite",
@@ -494,7 +522,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seedance-10-pro-fast",
@@ -508,7 +536,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "doubao-seedream-5-0-pro",
@@ -522,7 +550,7 @@
     "tags": [],
     "url": "https://www.volcengine.com/docs/82379/1099320",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "glm-4",
@@ -819,7 +847,21 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
+  },
+  {
+    "id": "qwen-audio-31-asr-flash-streaming",
+    "company": "阿里通义千问",
+    "companyColor": "#d97706",
+    "model": "qwen-audio-3.1-asr-flash-streaming",
+    "desc": "",
+    "context": "",
+    "inputPrice": 3.1,
+    "outputPrice": 3.8,
+    "tags": [],
+    "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
+    "note": "",
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-audio-31-realtime-plus",
@@ -829,11 +871,11 @@
     "desc": "",
     "context": "",
     "inputPrice": 3.5,
-    "outputPrice": -1,
+    "outputPrice": 3.8,
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-deepseek-v4-pro",
@@ -861,7 +903,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-happyhorse-11-i2v",
@@ -875,7 +917,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-happyoyster-10-adventure",
@@ -889,7 +931,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-image-30-pro",
@@ -903,7 +945,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-kimi-k3",
@@ -917,7 +959,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-long",
@@ -963,7 +1005,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-plus",
@@ -1019,7 +1061,7 @@
     "tags": [],
     "url": "https://help.aliyun.com/zh/model-studio/getting-started/models",
     "note": "",
-    "lastUpdated": "2026-09-21T07:21:05.342710+00:00"
+    "lastUpdated": "2026-09-22T06:58:20.651756+00:00"
   },
   {
     "id": "qwen-turbo",
